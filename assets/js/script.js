@@ -25,5 +25,30 @@ var getUserSearch = function(location) {
     });
   };
 
+  var userFormEl = document.querySelector("#user-form");
+  var nameInputEl = document.querySelector("#cityname");
 
-  getUserSearch("Paris");
+  var formSubmitHandler = function(event) {
+  
+    event.preventDefault();         // prevent to send data to a url
+    
+    console.log(event);
+  
+    // get value from input element
+    var cityname = nameInputEl.value.trim();
+  
+    if (cityname) {
+      getUserSearch(cityname);
+      nameInputEl.value = "";
+    } else {
+      alert("Please enter a valid City name");
+    }
+  }
+
+
+  
+// getUserRepos();
+userFormEl.addEventListener("submit", formSubmitHandler);
+
+
+  // getUserSearch("Paris");
