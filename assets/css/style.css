@@ -1,9 +1,11 @@
+/* I borrow the style of my friend Amiko */
+
 :root {
-  --primary: #ccdad1;
+  --primary: #adcde6;
   --secondary: #9caea9;
-  --tertiary: #788585;
-  --light-dark: #6f6866;
-  --dark: #38302e;
+  --tertiary: #6288ea;
+  --light-dark: #32527b;
+  --dark: #391b98;
   --border-radius: .3rem;
 }
 
@@ -11,11 +13,12 @@
   box-sizing: border-box;
 }
 
+
 body {
   background-color: var(--primary);
   margin: 0;
   padding: 0;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Philosopher", sans-serif;
   color: var(--dark);
   line-height: 1.5;
   font-size: 16px;
@@ -45,10 +48,10 @@ p {
  .btn {
   font-size: 1.3rem;
   text-decoration:none;
-  padding: 6px 5px;
+  padding: 15px 5px;
   width: 100%;
   display: block;
-  margin: 5px 0;
+  margin: 15px 0;
   border-radius: var(--border-radius);
   color: var(--primary);
   border: none;
@@ -96,6 +99,9 @@ p {
   padding: 3% 4%;
   background-color: var(--dark);
   color: var(--primary);
+  text-align: center;
+  font-size: 3rem;
+  background-image: linear-gradient(to right, var(--tertiary), var(--dark));
 }
 
 .hero p {
@@ -103,7 +109,7 @@ p {
 }
 
 .app-title {
-  font-size: 3rem;
+  /* font-size: 3rem; */
   background-color: var(--primary);
   color: var(--dark);
   padding: 0 10px;
@@ -148,8 +154,8 @@ p {
 /* CARDS */
 .card {
   margin: 0 0 20px 0;
-  border: 3px solid var(--dark);
-  border-radius: var(--border-radius);
+  /* border: 3px solid var(--dark);
+  border-radius: var(--border-radius); */
 }
 
 .card-header {
@@ -182,6 +188,11 @@ p {
   font-size: 1.2rem;
   border: 2px solid var(--light-dark);
   border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.form-input:hover {
+  background-color: var(--tertiary);
 }
 
 /* HEIGHT / WIDTH UTILS */
