@@ -1,0 +1,29 @@
+
+
+
+
+
+var getUserSearch = function(location) {
+    // format the openWeather api url
+    var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q="+ location +"&units=metric&APPID=5d3247362c5bea55d3c0e663cb0344b0";
+  console.log(apiUrl);
+    // make a request to the url
+    fetch(apiUrl).then(function(response) {
+      if (response.ok) {
+        response.json().then(function(data) {
+          console.log(data);
+          // displayRepos(data, user);
+        });
+      } else {
+        // unrecognizable city name
+        alert("Error: City not found");
+      }
+    })
+    .catch(function(error) {
+      // If no responce then report network error
+      alert("Unable to connect to OpenWeather API");
+    });
+  };
+
+
+  getUserSearch("Paris");
