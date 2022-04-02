@@ -169,6 +169,17 @@ p {
   padding: 2.5%;
 }
 
+.card2 {
+  padding: 10px;
+  margin: 0 0 20px 0;
+  border: 3px solid var(--dark);
+  border-radius: var(--border-radius);
+}
+
+.card2 h3 {
+  text-align: center;
+}
+
 /* FORM */
 .form-label,
 .form-input,
