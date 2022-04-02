@@ -1,6 +1,8 @@
 var historyEl = document.querySelector("#history");
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#cityname");
+var locationEl = document.querySelector("#currentDay");
+
 var cityEl = document.querySelector("#"+i);
 
 var i = 0;
@@ -40,27 +42,41 @@ var addHistory = function(name) {
       i++;
 }
 
-var locationEl = document.querySelector("#currentDay");
+
+var cityEl = document.createElement("h3");
+var tempEl = document.createElement("p");
+var windEl = document.createElement("p");
+var humidEl = document.createElement("p");
+
+var resetCard = function() {
+  cityEl.textContent = "";
+  tempEl.textContent = "";
+  windEl.textContent = "";
+  humidEl.textContent = "";
+}
+
 
 var displayWeather = function(conditions, searchTerm) {
 
   var currentDate = moment().format('dddd, MMM Do YYYY');       
   console.log(searchTerm);    console.log(currentDate);
 
-  // var cityCardEl = document.querySelector(".card2#currentDay");
-  var cityEl = document.createElement("h3");
+  resetCard();
+
+  
+  // var cityEl = document.createElement("h3");
       cityEl.textContent = searchTerm + " " + currentDate;
       locationEl.appendChild(cityEl);
 
-  var tempEl = document.createElement("p");
+  // var tempEl = document.createElement("p");
       tempEl.textContent = "Temperature :  " + Math.floor(conditions.wind.speed) + " C";
       locationEl.appendChild(tempEl);
 
-  var windEl = document.createElement("p");
+  // var windEl = document.createElement("p");
       windEl.textContent = "Wind speed :  " + Math.floor(conditions.wind.speed) + " km/h";
       locationEl.appendChild(windEl);
 
-  var humidEl = document.createElement("p");
+  // var humidEl = document.createElement("p");
       humidEl.textContent = "Humidity :  " + conditions.main.humidity + " %";
       locationEl.appendChild(humidEl);
 
@@ -97,10 +113,10 @@ var formSubmitHandler = function(event) {
 
 var historySubmitHandler = function(event) {
  
-  console.log(event);
+  console.log("event");
 } 
 
-// getUserRepos();
+
 userFormEl.addEventListener("submit", formSubmitHandler);
 historyEl.addEventListener("submit", historySubmitHandler);
 
