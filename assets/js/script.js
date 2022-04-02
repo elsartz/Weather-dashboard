@@ -25,25 +25,38 @@ var getUserSearch = function(location) {
     });
   };
 
-  var userFormEl = document.querySelector("#user-form");
-  var nameInputEl = document.querySelector("#cityname");
 
-  var formSubmitHandler = function(event) {
+var addHistory = function(name) {
+  var cityEl = document.createElement("p");
+      cityEl.classList = "form-input text-uppercase";
+      cityEl.textContent = name;
+      historyEl.appendChild(cityEl);
+}
+
+
+var historyEl = document.querySelector("#history");
+var userFormEl = document.querySelector("#user-form");
+var nameInputEl = document.querySelector("#cityname");
+
+var formSubmitHandler = function(event) {
+
+  event.preventDefault();         // prevent to send data to a url
   
-    event.preventDefault();         // prevent to send data to a url
-    
-    console.log(event);
-  
-    // get value from input element
-    var cityname = nameInputEl.value.trim();
-  
-    if (cityname) {
-      getUserSearch(cityname);
-      nameInputEl.value = "";
-    } else {
-      alert("Please enter a valid City name");
-    }
+  console.log(event);
+
+  // get value from input element
+  var cityname = nameInputEl.value.trim();
+
+  if (cityname) {
+    getUserSearch(cityname);
+    // put city in memory
+    localStorage.setItem("history", JSON.stringify(cityname));
+    addHistory(cityname);
+    nameInputEl.value = "";
+  } else {
+    alert("Please enter a valid City name");
   }
+}
 
 
   
