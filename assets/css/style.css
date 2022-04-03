@@ -180,6 +180,17 @@ p {
   text-align: center;
 }
 
+.card3 {
+  padding: 10px;
+  margin: 0 0 20px 0;
+  border: 3px solid var(--dark);
+  border-radius: var(--border-radius);
+}
+
+.card3 h3 {
+  text-align: center;
+}
+
 /* conditions of UV index */
 .favorable {
   background-color: green;

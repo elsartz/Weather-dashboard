@@ -37,6 +37,7 @@ function showPosition(position) {
             console.log(location);
 
           displayLocalWeather(data, location);
+          display5Days(data);
         });
       } else {
         // unrecognizable city name
@@ -54,7 +55,7 @@ var displayLocalWeather = function(conditions, searchTerm) {
 
   var currentDate = moment().format('dddd, MMM Do YYYY');       
   console.log(searchTerm);    console.log(currentDate);
-
+console.log(conditions);
   resetCard();
 
   
@@ -89,6 +90,7 @@ var displayLocalWeather = function(conditions, searchTerm) {
 
       locationEl.appendChild(uviEl);
       locationEl.appendChild(uviSpanEl);
+
 }
 
 
@@ -103,9 +105,9 @@ var getUserSearch = function(location) {
     // make a request to the url
     fetch(apiUrl).then(function(response) {
       if (response.ok) {
-        response.json().then(function(data) {
-          console.log(data);
-          displayWeather(data, location);
+        response.json().then(function(dataU) {
+          console.log(dataU);
+          displayWeather(dataU, location);
         });
       } else {
         // unrecognizable city name
@@ -117,6 +119,9 @@ var getUserSearch = function(location) {
       alert("Unable to connect to OpenWeather API");
     });
 };
+
+
+
 var addHistory = function(name) {
   var cityEl = document.createElement("button");
       cityEl.classList = "btn text-uppercase";
@@ -210,15 +215,32 @@ var dailyTempEl = document.createElement("p");
 var dailyWindEl = document.createElement("p");
 var dailyHumidEl = document.createElement("p");
 
+var dailyDivEl = document.createElement("div");
 
+// var {humidity, temp, wind_speed} = data.daily[0];
 
-var display5Days = function() {
-
+var display5Days = function(conditions) {
+console.log(conditions);
   var dailyDate = moment().add(1, "days").format('dddd, MMM Do YYYY');
-    console.log(dailyDate);
-    dailyDateEl.textContent = dailyDate;
-    formEl0.appendChild(dailyDateEl);
+  var humidity = conditions.daily[0].humidity;
+  var temp = Math.round(conditions.daily[0].temp.day);
+  var wind_speed = conditions.daily[0].wind_speed;
+  var icon = conditions.daily[0].weather[0].icon;
+  // console.log(humidity);
+  // console.log(temp);
+  // console.log(wind_speed);
+  // console.log(icon);
 
+
+  dailyDivEl.innerHTML = 
+   `<p>${dailyDate}</p>
+    <span><img src="http://openweathermap.org/img/wn/${icon}@2x.png" /></span>
+    <p>Temp ${temp} C</p>
+    <p>Wind ${wind_speed} kph</p>
+    <p>Humidity ${humidity} %</p>`;
+
+
+  formEl0.appendChild(dailyDivEl);
 }
 
 
