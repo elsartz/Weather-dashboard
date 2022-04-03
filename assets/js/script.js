@@ -24,11 +24,9 @@ function getLocation() {
 
 function showPosition(position) {
 
-  // x.innerHTML = "Latitude: " + position.coords.latitude +
-  // "<br>Longitude: " + position.coords.longitude;
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-  var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=hourly,minutely&appid=5d3247362c5bea55d3c0e663cb0344b0";
+  var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=hourly,minutely&units=metric&appid=5d3247362c5bea55d3c0e663cb0344b0";
 
   fetch(apiUrl).then(function(response) {
       if (response.ok) {
@@ -95,7 +93,7 @@ var displayLocalWeather = function(conditions, searchTerm) {
 
 
 
-getLocation();
+
 
 var getUserSearch = function(location) {
     // format the openWeather api url
@@ -203,12 +201,36 @@ var formSubmitHandler = function(event) {
   }
 }
 
+var formEl0 = document.querySelector("#n0");
+console.log(formEl0);
+
+var dailyDateEl = document.createElement("p");
+var dailyIconEl = document.createElement("img");
+var dailyTempEl = document.createElement("p");
+var dailyWindEl = document.createElement("p");
+var dailyHumidEl = document.createElement("p");
+
+
+
+var display5Days = function() {
+
+  var dailyDate = moment().add(1, "days").format('dddd, MMM Do YYYY');
+    console.log(dailyDate);
+    dailyDateEl.textContent = dailyDate;
+    formEl0.appendChild(dailyDateEl);
+
+}
+
+
 var historySubmitHandler = function(event) {
- 
+  event.preventDefault();
   console.log("event");
 } 
 
-
+// get current location
+getLocation();
+// get users city search
 userFormEl.addEventListener("submit", formSubmitHandler);
+
 historyEl.addEventListener("submit", historySubmitHandler);
 
