@@ -207,40 +207,43 @@ var formSubmitHandler = function(event) {
 }
 
 var formEl0 = document.querySelector("#n0");
+var formEl1 = document.querySelector("#n1");
+var formEl2 = document.querySelector("#n2");
+var formEl3 = document.querySelector("#n3");
+var formEl4 = document.querySelector("#n4");
 console.log(formEl0);
 
-var dailyDateEl = document.createElement("p");
-var dailyIconEl = document.createElement("img");
-var dailyTempEl = document.createElement("p");
-var dailyWindEl = document.createElement("p");
-var dailyHumidEl = document.createElement("p");
+// 
+// var dailyDivEl = document.createElement("div");
 
-var dailyDivEl = document.createElement("div");
-
-// var {humidity, temp, wind_speed} = data.daily[0];
 
 var display5Days = function(conditions) {
-console.log(conditions);
-  var dailyDate = moment().add(1, "days").format('dddd, MMM Do YYYY');
-  var humidity = conditions.daily[0].humidity;
-  var temp = Math.round(conditions.daily[0].temp.day);
-  var wind_speed = conditions.daily[0].wind_speed;
-  var icon = conditions.daily[0].weather[0].icon;
-  // console.log(humidity);
-  // console.log(temp);
-  // console.log(wind_speed);
-  // console.log(icon);
 
+  for (var i=0; i < 5; i++) {
+    var dailyDivEl = document.createElement("div");
 
-  dailyDivEl.innerHTML = 
-   `<p>${dailyDate}</p>
-    <span><img src="http://openweathermap.org/img/wn/${icon}@2x.png" /></span>
-    <p>Temp ${temp} C</p>
-    <p>Wind ${wind_speed} kph</p>
-    <p>Humidity ${humidity} %</p>`;
+    var dailyDate = moment().add(1+i, "days").format('dddd, MMM Do YYYY');
+    var humidity = conditions.daily[i].humidity;
+    var temp = Math.round(conditions.daily[i].temp.day);
+    var wind_speed = conditions.daily[i].wind_speed;
+    var icon = conditions.daily[i].weather[0].icon;
 
+    dailyDivEl.innerHTML = 
+    `<p>${dailyDate}</p>
+      <span><img src="http://openweathermap.org/img/wn/${icon}@2x.png" /></span>
+      <p>Temp ${temp} C</p>
+      <p>Wind ${wind_speed} kph</p>
+      <p>Humidity ${humidity} %</p>`;
 
-  formEl0.appendChild(dailyDivEl);
+      switch(i){
+        case 0: formEl0.appendChild(dailyDivEl); break;
+        case 1: formEl1.appendChild(dailyDivEl); break;
+        case 2: formEl2.appendChild(dailyDivEl); break;
+        case 3: formEl3.appendChild(dailyDivEl); break;
+        case 4: formEl4.appendChild(dailyDivEl); break;
+      }
+    
+  }
 }
 
 
