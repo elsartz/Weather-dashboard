@@ -8,11 +8,11 @@ var uviSpanEl = document.createElement("span");
 var cityEl = document.querySelector("#"+i);
 
 var i = 0;
-var historyArray = ["Ottawa"];
+var historyArray = [];
 var targetApi = "";
 
 
-
+// use geolocation for current position
 var x = document.getElementById("currentDay");
 function getLocation() {
   if (navigator.geolocation) {
@@ -21,9 +21,9 @@ function getLocation() {
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
-
+// see and set the coordinates push them to display
 function showPosition(position) {
-
+console.log(position);
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
   var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=hourly,minutely&units=metric&appid=5d3247362c5bea55d3c0e663cb0344b0";
@@ -33,7 +33,7 @@ function showPosition(position) {
         response.json().then(function(data) {
           console.log(data);
           var localArea = data.timezone;
-            var location = localArea.split("/")[1];
+          var location = localArea.split("/")[1];
             console.log(location);
 
           displayLocalWeather(data, location);
@@ -45,7 +45,7 @@ function showPosition(position) {
       }
     })
     .catch(function(error) {
-      // If no responce then report network error
+      // If no response then report network error
       alert("Unable to connect to OpenWeather API");
     });
 
@@ -213,8 +213,6 @@ var formEl3 = document.querySelector("#n3");
 var formEl4 = document.querySelector("#n4");
 console.log(formEl0);
 
-// 
-// var dailyDivEl = document.createElement("div");
 
 
 var display5Days = function(conditions) {
@@ -254,8 +252,9 @@ var historySubmitHandler = function(event) {
 
 // get current location
 getLocation();
+
 // get users city search
 userFormEl.addEventListener("submit", formSubmitHandler);
-
+console.log(userFormEl);
 historyEl.addEventListener("submit", historySubmitHandler);
-
+console.log(historyEl);
