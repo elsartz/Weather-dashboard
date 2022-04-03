@@ -2,12 +2,100 @@ var historyEl = document.querySelector("#history");
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#cityname");
 var locationEl = document.querySelector("#currentDay");
+var uviEl = document.createElement("span");
+var uviSpanEl = document.createElement("span");
 
 var cityEl = document.querySelector("#"+i);
 
 var i = 0;
 var historyArray = ["Ottawa"];
 var targetApi = "";
+
+
+
+var x = document.getElementById("currentDay");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+
+  // x.innerHTML = "Latitude: " + position.coords.latitude +
+  // "<br>Longitude: " + position.coords.longitude;
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=hourly,minutely&appid=5d3247362c5bea55d3c0e663cb0344b0";
+
+  fetch(apiUrl).then(function(response) {
+      if (response.ok) {
+        response.json().then(function(data) {
+          console.log(data);
+          var localArea = data.timezone;
+            var location = localArea.split("/")[1];
+            console.log(location);
+
+          displayLocalWeather(data, location);
+        });
+      } else {
+        // unrecognizable city name
+        alert("Error: City not found");
+      }
+    })
+    .catch(function(error) {
+      // If no responce then report network error
+      alert("Unable to connect to OpenWeather API");
+    });
+
+}
+
+var displayLocalWeather = function(conditions, searchTerm) {
+
+  var currentDate = moment().format('dddd, MMM Do YYYY');       
+  console.log(searchTerm);    console.log(currentDate);
+
+  resetCard();
+
+  
+  // var cityEl = document.createElement("h3");
+      cityEl.textContent = searchTerm + " " + currentDate;
+      locationEl.appendChild(cityEl);
+
+  // var tempEl = document.createElement("p");
+      tempEl.textContent = "Temperature :  " + Math.floor(conditions.current.temp) + " C";
+      locationEl.appendChild(tempEl);
+
+  // var windEl = document.createElement("p");
+      windEl.textContent = "Wind speed :  " + Math.floor(conditions.current.wind_speed) + " km/h";
+      locationEl.appendChild(windEl);
+
+  // var humidEl = document.createElement("p");
+      humidEl.textContent = "Humidity :  " + conditions.current.humidity + " %";
+      locationEl.appendChild(humidEl);
+
+  // var uviEl = document.createElement("p");
+      uviEl.textContent = "UV index :  ";
+
+  // var uviSpanEl = document.createElement("span");
+      uviSpanEl.textContent = conditions.current.uvi;
+      if (conditions.current.uvi <3) {
+        uviSpanEl.classList.add("favorable");
+      } else if (conditions.current.uvi >5) {
+        uviSpanEl.classList.add("severe");
+      } else {
+        uviSpanEl.classList.add("moderate");
+      }
+
+      locationEl.appendChild(uviEl);
+      locationEl.appendChild(uviSpanEl);
+}
+
+
+
+getLocation();
 
 var getUserSearch = function(location) {
     // format the openWeather api url
@@ -53,6 +141,9 @@ var resetCard = function() {
   tempEl.textContent = "";
   windEl.textContent = "";
   humidEl.textContent = "";
+  uviEl.textContent = "";
+  uviSpanEl.textContent = "";
+  uviSpanEl.classList.remove("favorable","moderate","severe");
 }
 
 
@@ -69,7 +160,7 @@ var displayWeather = function(conditions, searchTerm) {
       locationEl.appendChild(cityEl);
 
   // var tempEl = document.createElement("p");
-      tempEl.textContent = "Temperature :  " + Math.floor(conditions.wind.speed) + " C";
+      tempEl.textContent = "Temperature :  " + Math.floor(conditions.main.temp) + " C";
       locationEl.appendChild(tempEl);
 
   // var windEl = document.createElement("p");
@@ -89,6 +180,7 @@ var displayWeather = function(conditions, searchTerm) {
    
   
 }
+
 var formSubmitHandler = function(event) {
 
   event.preventDefault();         // prevent to send data to a url

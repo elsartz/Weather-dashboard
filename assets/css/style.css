@@ -180,6 +180,25 @@ p {
   text-align: center;
 }
 
+/* conditions of UV index */
+.favorable {
+  background-color: green;
+  padding: 5px 20px;
+  border-radius: 5px;
+}
+
+.moderate {
+  background-color: orange;
+  padding: 5px 20px;
+  border-radius: 5px;
+}
+
+.severe {
+  background-color: red;
+  padding: 5px 20px;
+  border-radius: 5px;
+}
+
 /* FORM */
 .form-label,
 .form-input,
