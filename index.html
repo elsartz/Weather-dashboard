@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+    <!-- links for fonts and style -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
@@ -14,7 +14,9 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
+    <!-- Simple header -->
     <header class="hero">Weather Dashboard</header>
+    <!-- Search form -->
     <main class="flex-row justify-space-between">
         <div class="col-12 col-md-4">
             <div class="card">
@@ -24,12 +26,12 @@
                     <button type="submit" class="btn">Search</button>
                 </form>
             </div>
-
+    <!-- Place of history search -->
             <div class="card" id="history">
                 
             </div>
         </div>
-
+    <!-- 5 days forecast -->
         <div class="col-12 col-md-8">
             <div class="card2 text-uppercase" id="currentDay">
                
@@ -57,7 +59,7 @@
             </div>
         </div>
     </main>
-
+    <!-- Use of moments to get the dates -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     
     <script src="./assets/js/script.js"></script>
