@@ -54,10 +54,8 @@ console.log(position);
 var displayLocalWeather = function(conditions, searchTerm) {
 
   var currentDate = moment().format('dddd, MMM Do YYYY');       
-  console.log(searchTerm);    console.log(currentDate);
-console.log(conditions);
+ 
   resetCard();
-
   
   // var cityEl = document.createElement("h3");
       cityEl.textContent = searchTerm + " " + currentDate;
@@ -108,6 +106,7 @@ function nextPosition(lat, lon) {
               console.log(location);
   
             displayLocalWeather(data, location);
+            
             display5Days(data);
           });
         } else {
@@ -159,8 +158,11 @@ var addHistory = function(name) {
       cityEl.setAttribute("id", i);
       cityEl.setAttribute("type","submit");
       cityEl.textContent = name;
+      if (!historyArray.includes(name)){
         historyArray.push(name);
-      historyEl.appendChild(cityEl);
+        historyEl.appendChild(cityEl);
+      }
+        
       i++;
 }
 
@@ -178,6 +180,7 @@ var resetCard = function() {
   uviEl.textContent = "";
   uviSpanEl.textContent = "";
   uviSpanEl.classList.remove("favorable","moderate","severe");
+  
 }
 
 
@@ -213,10 +216,10 @@ console.log(formEl0);
 
 
 var display5Days = function(conditions) {
-    
+  
   for (var i=0; i < 5; i++) {
     var dailyDivEl = document.createElement("div");
-        
+    
     var dailyDate = moment().add(1+i, "days").format('dddd, MMM Do YYYY');
     var humidity = conditions.daily[i].humidity;
     var temp = Math.round(conditions.daily[i].temp.day);
@@ -239,12 +242,16 @@ var display5Days = function(conditions) {
       }
     
   }
+  
 }
 
 
 var historySubmitHandler = function(event) {
-  event.preventDefault();
-  console.log("event");
+  // event.preventDefault();
+  console.log(event);
+console.log(this.textContent);
+var location = this.textContent;
+getUserSearch(location);
 
 } 
 
