@@ -9,8 +9,6 @@ var cityEl = document.querySelector("#"+i);
 
 var i = 0;
 var historyArray = [];
-var targetApi = "";
-
 
 // use geolocation for current position
 var x = document.getElementById("currentDay");
@@ -100,13 +98,12 @@ function nextPosition(lat, lon) {
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
           response.json().then(function(data) {
-            console.log(data);
+            
             var localArea = data.timezone;
             var location = localArea.split("/")[1];
-              console.log(location);
   
               historyArray.push(location);
-              console.log(historyArray);
+              
             displayLocalWeather(data, location);
             
             display5Days(data);
@@ -120,27 +117,23 @@ function nextPosition(lat, lon) {
       .catch(function(error) {
         // If no response then report network error
         alert("Unable to connect to OpenWeather API");
-      });
-  
-  }
-
-
+      });  
+}
 
 var getUserSearch = function(location) {
     // format the openWeather api url
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ location +"&units=metric&APPID=5d3247362c5bea55d3c0e663cb0344b0";
-    targetApi = apiUrl;
-  console.log(apiUrl);
+      
     // make a request to the url
     fetch(apiUrl).then(function(response) {
       if (response.ok) {
         response.json().then(function(dataU) {
-          console.log(dataU);
+          
+          // give data for new forecast
           var lat = dataU.coord.lat;
           var lon = dataU.coord.lon;
           nextPosition(lat, lon);
-          console.log(lat,lon);
-          // displayWeather(dataU, location);
+          
         });
       } else {
         // unrecognizable city name
@@ -154,18 +147,17 @@ var getUserSearch = function(location) {
 };
 
 
-
+// add button history if doesn't exist
 var addHistory = function(name) {
   var cityEl = document.createElement("button");
       cityEl.classList = "btn text-uppercase";
       cityEl.setAttribute("id", i);
       cityEl.setAttribute("type","submit");
       cityEl.textContent = name;
+
       if (!historyArray.includes(name)){
-        // historyArray.push(name);
         historyEl.appendChild(cityEl);
-      }
-        
+      }        
       i++;
 }
 
@@ -183,7 +175,6 @@ var resetCard = function() {
   uviEl.textContent = "";
   uviSpanEl.textContent = "";
   uviSpanEl.classList.remove("favorable","moderate","severe");
-  
 }
 
 
@@ -191,8 +182,6 @@ var formSubmitHandler = function(event) {
 
   event.preventDefault();         // prevent to send data to a url
   
-  console.log(event);
-
   // get value from input element
   var cityname = nameInputEl.value.trim();
 
@@ -258,10 +247,8 @@ var removeDiv = function() {
 }
 
 var historySubmitHandler = function(event) {
-  // event.preventDefault();
-  console.log(event.target.textContent);
-
-getUserSearch(event.target.textContent);
+  
+  getUserSearch(event.target.textContent);
 
 } 
 
@@ -271,5 +258,6 @@ getLocation();
 // get users city search
 userFormEl.addEventListener("submit", formSubmitHandler);
 console.log(userFormEl);
+// show again if button pressed
 historyEl.addEventListener("click", historySubmitHandler);
 console.log(historyEl);
