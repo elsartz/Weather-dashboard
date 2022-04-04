@@ -105,9 +105,12 @@ function nextPosition(lat, lon) {
             var location = localArea.split("/")[1];
               console.log(location);
   
+              historyArray.push(location);
+              console.log(historyArray);
             displayLocalWeather(data, location);
             
             display5Days(data);
+            
           });
         } else {
           // unrecognizable city name
@@ -159,7 +162,7 @@ var addHistory = function(name) {
       cityEl.setAttribute("type","submit");
       cityEl.textContent = name;
       if (!historyArray.includes(name)){
-        historyArray.push(name);
+        // historyArray.push(name);
         historyEl.appendChild(cityEl);
       }
         
@@ -219,7 +222,7 @@ var display5Days = function(conditions) {
   
   for (var i=0; i < 5; i++) {
     var dailyDivEl = document.createElement("div");
-    
+          
     var dailyDate = moment().add(1+i, "days").format('dddd, MMM Do YYYY');
     var humidity = conditions.daily[i].humidity;
     var temp = Math.round(conditions.daily[i].temp.day);
@@ -246,12 +249,19 @@ var display5Days = function(conditions) {
 }
 
 
+var removeDiv = function() {
+  formEl0.removeChild(dailyDivEl);
+  formEl1.removeChild(dailyDivEl);
+  formEl2.removeChild(dailyDivEl);
+  formEl3.removeChild(dailyDivEl);
+  formEl4.removeChild(dailyDivEl);
+}
+
 var historySubmitHandler = function(event) {
   // event.preventDefault();
-  console.log(event);
-console.log(this.textContent);
-var location = this.textContent;
-getUserSearch(location);
+  console.log(event.target.textContent);
+
+getUserSearch(event.target.textContent);
 
 } 
 
