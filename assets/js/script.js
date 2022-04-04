@@ -125,7 +125,7 @@ function nextPosition(lat, lon) {
 
 var getUserSearch = function(location) {
     // format the openWeather api url
-    var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q="+ location +"&units=metric&APPID=5d3247362c5bea55d3c0e663cb0344b0";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ location +"&units=metric&APPID=5d3247362c5bea55d3c0e663cb0344b0";
     targetApi = apiUrl;
   console.log(apiUrl);
     // make a request to the url
@@ -228,7 +228,7 @@ var display5Days = function(conditions) {
 
     dailyDivEl.innerHTML = 
     `<p>${dailyDate}</p>
-      <span><img src="http://openweathermap.org/img/wn/${icon}@2x.png" /></span>
+      <span><img src="https://openweathermap.org/img/wn/${icon}@2x.png" /></span>
       <p>Temp ${temp} C</p>
       <p>Wind ${wind_speed} kph</p>
       <p>Humidity ${humidity} %</p>`;
