@@ -1,4 +1,5 @@
 # Quick Forecast
+![GitHub release](https://img.shields.io/github/v/release/elsartz/Weather-dashboard)
 
 A long weekend on the way?
 Time for a small escape?
